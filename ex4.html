@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Registration Form</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f0f0f0;
+    }
+    .container {
+        width: 350px;
+        margin: 100px auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        text-align: center;
+    }
+    h2{
+        margin-bottom: 20px;
+    }
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        background: #3f65b5;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #2f4a8a;
+    }
+
+    .error {
+        color: red;
+        font-size: 13px;
+        text-align: left;
+    }
+</style>
+
+</head>
+<body>
+
+<div class="container">
+    <h2>Registration Form</h2>
+
+    <input type="text" id="name" placeholder="Enter Name">
+    <div id="nameError" class="error"></div>
+
+    <input type="text" id="email" placeholder="Enter Email">
+    <div id="emailError" class="error"></div>
+
+    <input type="text" id="phone" placeholder="Enter Phone Number">
+    <div id="phoneError" class="error"></div>
+
+    <button onclick="validateForm()">Validate</button>
+    <button onclick="showData()">Show Data</button>
+    <button onclick="clearForm()">Clear</button>
+</div>
+
+<script>
+function clearErrors() {
+    document.getElementById("nameError").innerHTML = "";
+    document.getElementById("emailError").innerHTML = "";
+    document.getElementById("phoneError").innerHTML = "";
+}
+
+function validateForm() {
+    clearErrors();
+
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+
+    let isValid = true;
+
+    // Name validation
+    if (name === "") {
+        document.getElementById("nameError").innerHTML = "Name is required";
+        isValid = false;
+    }
+
+    // Email validation
+    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (email === "") {
+        document.getElementById("emailError").innerHTML = "Email is required";
+        isValid = false;
+    } else if (!email.match(emailPattern)) {
+        document.getElementById("emailError").innerHTML = "Invalid email format";
+        isValid = false;
+    }
+
+    // Phone validation
+    let phonePattern = /^[0-9]{10}$/;
+    if (phone === "") {
+        document.getElementById("phoneError").innerHTML = "Phone number is required";
+        isValid = false;
+    } else if (!phone.match(phonePattern)) {
+        document.getElementById("phoneError").innerHTML = "Enter valid 10-digit number";
+        isValid = false;
+    }
+
+    if (isValid) {
+        alert("Validation Successful ✅");
+    }
+
+    return isValid;
+}
+
+// Show Data
+function showData() {
+    if (validateForm()) {
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let phone = document.getElementById("phone").value;
+
+        alert(
+            "User Details:\n\n" +
+            "Name: " + name + "\n" +
+            "Email: " + email + "\n" +
+            "Phone: " + phone
+        );
+    }
+}
+
+// Clear Form
+function clearForm(){
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("phone").value = "";
+    clearErrors();
+}
+</script>
+</body>
+</html>

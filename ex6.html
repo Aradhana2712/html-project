@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+   box-sizing: border-box;
+}
+
+.heading{
+    text-align:center;
+    font-size:50px;
+    margin-bottom:15px;
+   
+}
+#cards{
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+}
+.card{
+    width:23%;
+    box-shadow:0 0 4px 3px pink;
+    text-align:center;
+    padding:15px;
+    margin-bottom:20px;
+}
+.images{
+    width:80%;
+}
+.title{
+    font-size:20px;
+}
+.category,.price{
+    font-weight:bold;
+    text-transform:capitalize;
+    margin:10px;
+    font-size:20px;
+}
+    </style>
+</head>
+<body>
+    <h1 class="heading">Fetch fake store</h1>
+    <div id="cards">
+    </div>
+    <script>
+let htmldata = "";
+
+fetch("https://fakestoreapi.com/products")
+.then(response => response.json())
+.then(completedata => {
+    completedata.forEach(obj1 => {
+        htmldata += `
+        <div class="card">
+            <h1 class="title">${obj1.title}</h1>
+            <img src="${obj1.image}" alt="img" class="images">
+            <p>${obj1.description}</p>
+            <p class="category">${obj1.category}</p>
+            <p class="price">$${obj1.price}</p>
+        </div>`;
+    });
+
+    document.getElementById("cards").innerHTML = htmldata;
+});
+</script>
+
+</body>
+</html>
